@@ -396,13 +396,28 @@
     nextButton.textContent = state.page === PAGE_COUNT - 1 ? "Submit" : "下一页";
   }
 
-  function submitNetlifyForm() {
+  async function submitNetlifyForm() {
     if (!isExperimentComplete()) return;
     syncNetlifyFields();
     saveStatus.textContent = "正在提交...";
     saveStatus.className = "save-status";
     nextButton.disabled = true;
-    surveyForm.submit();
+
+    try {
+      const body = new URLSearchParams(new FormData(surveyForm)).toString();
+      const response = await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body,
+      });
+
+      if (!response.ok) throw new Error("Submit failed");
+      window.location.href = "/success.html";
+    } catch (error) {
+      saveStatus.textContent = "提交失败，请联系测试员。";
+      saveStatus.className = "save-status error";
+      nextButton.disabled = false;
+    }
   }
 
   function syncNetlifyFields() {
