@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EEG Emotion Assessment</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <form
+        class="survey-card"
+        id="surveyForm"
+        name="eeg-emotion-assessment"
+        method="POST"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
+        action="/success.html"
+        aria-live="polite"
+      >
+        <input type="hidden" name="form-name" value="eeg-emotion-assessment" />
+        <p class="hidden-field">
+          <label>Do not fill this out: <input name="bot-field" /></label>
+        </p>
+        <div id="netlifyFields">
+          <input type="hidden" name="participant_id" id="field_participant_id" />
+          <input type="hidden" name="submitted_at" id="field_submitted_at" />
+          <input type="hidden" name="baseline_valence" id="field_baseline_valence" />
+          <input type="hidden" name="baseline_arousal" id="field_baseline_arousal" />
+          <input type="hidden" name="video1_overall_valence" id="field_video1_overall_valence" />
+          <input type="hidden" name="video1_overall_arousal" id="field_video1_overall_arousal" />
+          <input type="hidden" name="video1_timeline_arousal_0s" id="field_video1_timeline_arousal_0s" />
+          <input type="hidden" name="video1_timeline_arousal_10s" id="field_video1_timeline_arousal_10s" />
+          <input type="hidden" name="video1_timeline_arousal_20s" id="field_video1_timeline_arousal_20s" />
+          <input type="hidden" name="video1_timeline_arousal_30s" id="field_video1_timeline_arousal_30s" />
+          <input type="hidden" name="video1_timeline_arousal_40s" id="field_video1_timeline_arousal_40s" />
+          <input type="hidden" name="video1_timeline_arousal_50s" id="field_video1_timeline_arousal_50s" />
+          <input type="hidden" name="video1_timeline_arousal_60s" id="field_video1_timeline_arousal_60s" />
+          <input type="hidden" name="video1_timeline_arousal_70s" id="field_video1_timeline_arousal_70s" />
+          <input type="hidden" name="video1_timeline_arousal_80s" id="field_video1_timeline_arousal_80s" />
+          <input type="hidden" name="video1_timeline_arousal_90s" id="field_video1_timeline_arousal_90s" />
+          <input type="hidden" name="video1_familiarity" id="field_video1_familiarity" />
+          <input type="hidden" name="video2_overall_valence" id="field_video2_overall_valence" />
+          <input type="hidden" name="video2_overall_arousal" id="field_video2_overall_arousal" />
+          <input type="hidden" name="video2_timeline_arousal_0s" id="field_video2_timeline_arousal_0s" />
+          <input type="hidden" name="video2_timeline_arousal_10s" id="field_video2_timeline_arousal_10s" />
+          <input type="hidden" name="video2_timeline_arousal_20s" id="field_video2_timeline_arousal_20s" />
+          <input type="hidden" name="video2_timeline_arousal_30s" id="field_video2_timeline_arousal_30s" />
+          <input type="hidden" name="video2_timeline_arousal_40s" id="field_video2_timeline_arousal_40s" />
+          <input type="hidden" name="video2_timeline_arousal_50s" id="field_video2_timeline_arousal_50s" />
+          <input type="hidden" name="video2_timeline_arousal_60s" id="field_video2_timeline_arousal_60s" />
+          <input type="hidden" name="video2_timeline_arousal_70s" id="field_video2_timeline_arousal_70s" />
+          <input type="hidden" name="video2_timeline_arousal_80s" id="field_video2_timeline_arousal_80s" />
+          <input type="hidden" name="video2_timeline_arousal_90s" id="field_video2_timeline_arousal_90s" />
+          <input type="hidden" name="video2_familiarity" id="field_video2_familiarity" />
+          <input type="hidden" name="video3_overall_valence" id="field_video3_overall_valence" />
+          <input type="hidden" name="video3_overall_arousal" id="field_video3_overall_arousal" />
+          <input type="hidden" name="video3_timeline_arousal_0s" id="field_video3_timeline_arousal_0s" />
+          <input type="hidden" name="video3_timeline_arousal_10s" id="field_video3_timeline_arousal_10s" />
+          <input type="hidden" name="video3_timeline_arousal_20s" id="field_video3_timeline_arousal_20s" />
+          <input type="hidden" name="video3_timeline_arousal_30s" id="field_video3_timeline_arousal_30s" />
+          <input type="hidden" name="video3_timeline_arousal_40s" id="field_video3_timeline_arousal_40s" />
+          <input type="hidden" name="video3_timeline_arousal_50s" id="field_video3_timeline_arousal_50s" />
+          <input type="hidden" name="video3_timeline_arousal_60s" id="field_video3_timeline_arousal_60s" />
+          <input type="hidden" name="video3_timeline_arousal_70s" id="field_video3_timeline_arousal_70s" />
+          <input type="hidden" name="video3_timeline_arousal_80s" id="field_video3_timeline_arousal_80s" />
+          <input type="hidden" name="video3_timeline_arousal_90s" id="field_video3_timeline_arousal_90s" />
+          <input type="hidden" name="video3_familiarity" id="field_video3_familiarity" />
+          <input type="hidden" name="video4_overall_valence" id="field_video4_overall_valence" />
+          <input type="hidden" name="video4_overall_arousal" id="field_video4_overall_arousal" />
+          <input type="hidden" name="video4_timeline_arousal_0s" id="field_video4_timeline_arousal_0s" />
+          <input type="hidden" name="video4_timeline_arousal_10s" id="field_video4_timeline_arousal_10s" />
+          <input type="hidden" name="video4_timeline_arousal_20s" id="field_video4_timeline_arousal_20s" />
+          <input type="hidden" name="video4_timeline_arousal_30s" id="field_video4_timeline_arousal_30s" />
+          <input type="hidden" name="video4_timeline_arousal_40s" id="field_video4_timeline_arousal_40s" />
+          <input type="hidden" name="video4_timeline_arousal_50s" id="field_video4_timeline_arousal_50s" />
+          <input type="hidden" name="video4_timeline_arousal_60s" id="field_video4_timeline_arousal_60s" />
+          <input type="hidden" name="video4_timeline_arousal_70s" id="field_video4_timeline_arousal_70s" />
+          <input type="hidden" name="video4_timeline_arousal_80s" id="field_video4_timeline_arousal_80s" />
+          <input type="hidden" name="video4_timeline_arousal_90s" id="field_video4_timeline_arousal_90s" />
+          <input type="hidden" name="video4_familiarity" id="field_video4_familiarity" />
+          <input type="hidden" name="video5_overall_valence" id="field_video5_overall_valence" />
+          <input type="hidden" name="video5_overall_arousal" id="field_video5_overall_arousal" />
+          <input type="hidden" name="video5_timeline_arousal_0s" id="field_video5_timeline_arousal_0s" />
+          <input type="hidden" name="video5_timeline_arousal_10s" id="field_video5_timeline_arousal_10s" />
+          <input type="hidden" name="video5_timeline_arousal_20s" id="field_video5_timeline_arousal_20s" />
+          <input type="hidden" name="video5_timeline_arousal_30s" id="field_video5_timeline_arousal_30s" />
+          <input type="hidden" name="video5_timeline_arousal_40s" id="field_video5_timeline_arousal_40s" />
+          <input type="hidden" name="video5_timeline_arousal_50s" id="field_video5_timeline_arousal_50s" />
+          <input type="hidden" name="video5_timeline_arousal_60s" id="field_video5_timeline_arousal_60s" />
+          <input type="hidden" name="video5_timeline_arousal_70s" id="field_video5_timeline_arousal_70s" />
+          <input type="hidden" name="video5_timeline_arousal_80s" id="field_video5_timeline_arousal_80s" />
+          <input type="hidden" name="video5_timeline_arousal_90s" id="field_video5_timeline_arousal_90s" />
+          <input type="hidden" name="video5_familiarity" id="field_video5_familiarity" />
+          <input type="hidden" name="video6_overall_valence" id="field_video6_overall_valence" />
+          <input type="hidden" name="video6_overall_arousal" id="field_video6_overall_arousal" />
+          <input type="hidden" name="video6_timeline_arousal_0s" id="field_video6_timeline_arousal_0s" />
+          <input type="hidden" name="video6_timeline_arousal_10s" id="field_video6_timeline_arousal_10s" />
+          <input type="hidden" name="video6_timeline_arousal_20s" id="field_video6_timeline_arousal_20s" />
+          <input type="hidden" name="video6_timeline_arousal_30s" id="field_video6_timeline_arousal_30s" />
+          <input type="hidden" name="video6_timeline_arousal_40s" id="field_video6_timeline_arousal_40s" />
+          <input type="hidden" name="video6_timeline_arousal_50s" id="field_video6_timeline_arousal_50s" />
+          <input type="hidden" name="video6_timeline_arousal_60s" id="field_video6_timeline_arousal_60s" />
+          <input type="hidden" name="video6_timeline_arousal_70s" id="field_video6_timeline_arousal_70s" />
+          <input type="hidden" name="video6_timeline_arousal_80s" id="field_video6_timeline_arousal_80s" />
+          <input type="hidden" name="video6_timeline_arousal_90s" id="field_video6_timeline_arousal_90s" />
+          <input type="hidden" name="video6_familiarity" id="field_video6_familiarity" />
+          <input type="hidden" name="video7_overall_valence" id="field_video7_overall_valence" />
+          <input type="hidden" name="video7_overall_arousal" id="field_video7_overall_arousal" />
+          <input type="hidden" name="video7_timeline_arousal_0s" id="field_video7_timeline_arousal_0s" />
+          <input type="hidden" name="video7_timeline_arousal_10s" id="field_video7_timeline_arousal_10s" />
+          <input type="hidden" name="video7_timeline_arousal_20s" id="field_video7_timeline_arousal_20s" />
+          <input type="hidden" name="video7_timeline_arousal_30s" id="field_video7_timeline_arousal_30s" />
+          <input type="hidden" name="video7_timeline_arousal_40s" id="field_video7_timeline_arousal_40s" />
+          <input type="hidden" name="video7_timeline_arousal_50s" id="field_video7_timeline_arousal_50s" />
+          <input type="hidden" name="video7_timeline_arousal_60s" id="field_video7_timeline_arousal_60s" />
+          <input type="hidden" name="video7_timeline_arousal_70s" id="field_video7_timeline_arousal_70s" />
+          <input type="hidden" name="video7_timeline_arousal_80s" id="field_video7_timeline_arousal_80s" />
+          <input type="hidden" name="video7_timeline_arousal_90s" id="field_video7_timeline_arousal_90s" />
+          <input type="hidden" name="video7_familiarity" id="field_video7_familiarity" />
+          <input type="hidden" name="video8_overall_valence" id="field_video8_overall_valence" />
+          <input type="hidden" name="video8_overall_arousal" id="field_video8_overall_arousal" />
+          <input type="hidden" name="video8_timeline_arousal_0s" id="field_video8_timeline_arousal_0s" />
+          <input type="hidden" name="video8_timeline_arousal_10s" id="field_video8_timeline_arousal_10s" />
+          <input type="hidden" name="video8_timeline_arousal_20s" id="field_video8_timeline_arousal_20s" />
+          <input type="hidden" name="video8_timeline_arousal_30s" id="field_video8_timeline_arousal_30s" />
+          <input type="hidden" name="video8_timeline_arousal_40s" id="field_video8_timeline_arousal_40s" />
+          <input type="hidden" name="video8_timeline_arousal_50s" id="field_video8_timeline_arousal_50s" />
+          <input type="hidden" name="video8_timeline_arousal_60s" id="field_video8_timeline_arousal_60s" />
+          <input type="hidden" name="video8_timeline_arousal_70s" id="field_video8_timeline_arousal_70s" />
+          <input type="hidden" name="video8_timeline_arousal_80s" id="field_video8_timeline_arousal_80s" />
+          <input type="hidden" name="video8_timeline_arousal_90s" id="field_video8_timeline_arousal_90s" />
+          <input type="hidden" name="video8_familiarity" id="field_video8_familiarity" />
+          <input type="hidden" name="video9_overall_valence" id="field_video9_overall_valence" />
+          <input type="hidden" name="video9_overall_arousal" id="field_video9_overall_arousal" />
+          <input type="hidden" name="video9_timeline_arousal_0s" id="field_video9_timeline_arousal_0s" />
+          <input type="hidden" name="video9_timeline_arousal_10s" id="field_video9_timeline_arousal_10s" />
+          <input type="hidden" name="video9_timeline_arousal_20s" id="field_video9_timeline_arousal_20s" />
+          <input type="hidden" name="video9_timeline_arousal_30s" id="field_video9_timeline_arousal_30s" />
+          <input type="hidden" name="video9_timeline_arousal_40s" id="field_video9_timeline_arousal_40s" />
+          <input type="hidden" name="video9_timeline_arousal_50s" id="field_video9_timeline_arousal_50s" />
+          <input type="hidden" name="video9_timeline_arousal_60s" id="field_video9_timeline_arousal_60s" />
+          <input type="hidden" name="video9_timeline_arousal_70s" id="field_video9_timeline_arousal_70s" />
+          <input type="hidden" name="video9_timeline_arousal_80s" id="field_video9_timeline_arousal_80s" />
+          <input type="hidden" name="video9_timeline_arousal_90s" id="field_video9_timeline_arousal_90s" />
+          <input type="hidden" name="video9_familiarity" id="field_video9_familiarity" />
+          <input type="hidden" name="video10_overall_valence" id="field_video10_overall_valence" />
+          <input type="hidden" name="video10_overall_arousal" id="field_video10_overall_arousal" />
+          <input type="hidden" name="video10_timeline_arousal_0s" id="field_video10_timeline_arousal_0s" />
+          <input type="hidden" name="video10_timeline_arousal_10s" id="field_video10_timeline_arousal_10s" />
+          <input type="hidden" name="video10_timeline_arousal_20s" id="field_video10_timeline_arousal_20s" />
+          <input type="hidden" name="video10_timeline_arousal_30s" id="field_video10_timeline_arousal_30s" />
+          <input type="hidden" name="video10_timeline_arousal_40s" id="field_video10_timeline_arousal_40s" />
+          <input type="hidden" name="video10_timeline_arousal_50s" id="field_video10_timeline_arousal_50s" />
+          <input type="hidden" name="video10_timeline_arousal_60s" id="field_video10_timeline_arousal_60s" />
+          <input type="hidden" name="video10_timeline_arousal_70s" id="field_video10_timeline_arousal_70s" />
+          <input type="hidden" name="video10_timeline_arousal_80s" id="field_video10_timeline_arousal_80s" />
+          <input type="hidden" name="video10_timeline_arousal_90s" id="field_video10_timeline_arousal_90s" />
+          <input type="hidden" name="video10_familiarity" id="field_video10_familiarity" />
+          <input type="hidden" name="video11_overall_valence" id="field_video11_overall_valence" />
+          <input type="hidden" name="video11_overall_arousal" id="field_video11_overall_arousal" />
+          <input type="hidden" name="video11_timeline_arousal_0s" id="field_video11_timeline_arousal_0s" />
+          <input type="hidden" name="video11_timeline_arousal_10s" id="field_video11_timeline_arousal_10s" />
+          <input type="hidden" name="video11_timeline_arousal_20s" id="field_video11_timeline_arousal_20s" />
+          <input type="hidden" name="video11_timeline_arousal_30s" id="field_video11_timeline_arousal_30s" />
+          <input type="hidden" name="video11_timeline_arousal_40s" id="field_video11_timeline_arousal_40s" />
+          <input type="hidden" name="video11_timeline_arousal_50s" id="field_video11_timeline_arousal_50s" />
+          <input type="hidden" name="video11_timeline_arousal_60s" id="field_video11_timeline_arousal_60s" />
+          <input type="hidden" name="video11_timeline_arousal_70s" id="field_video11_timeline_arousal_70s" />
+          <input type="hidden" name="video11_timeline_arousal_80s" id="field_video11_timeline_arousal_80s" />
+          <input type="hidden" name="video11_timeline_arousal_90s" id="field_video11_timeline_arousal_90s" />
+          <input type="hidden" name="video11_familiarity" id="field_video11_familiarity" />
+          <input type="hidden" name="video12_overall_valence" id="field_video12_overall_valence" />
+          <input type="hidden" name="video12_overall_arousal" id="field_video12_overall_arousal" />
+          <input type="hidden" name="video12_timeline_arousal_0s" id="field_video12_timeline_arousal_0s" />
+          <input type="hidden" name="video12_timeline_arousal_10s" id="field_video12_timeline_arousal_10s" />
+          <input type="hidden" name="video12_timeline_arousal_20s" id="field_video12_timeline_arousal_20s" />
+          <input type="hidden" name="video12_timeline_arousal_30s" id="field_video12_timeline_arousal_30s" />
+          <input type="hidden" name="video12_timeline_arousal_40s" id="field_video12_timeline_arousal_40s" />
+          <input type="hidden" name="video12_timeline_arousal_50s" id="field_video12_timeline_arousal_50s" />
+          <input type="hidden" name="video12_timeline_arousal_60s" id="field_video12_timeline_arousal_60s" />
+          <input type="hidden" name="video12_timeline_arousal_70s" id="field_video12_timeline_arousal_70s" />
+          <input type="hidden" name="video12_timeline_arousal_80s" id="field_video12_timeline_arousal_80s" />
+          <input type="hidden" name="video12_timeline_arousal_90s" id="field_video12_timeline_arousal_90s" />
+          <input type="hidden" name="video12_familiarity" id="field_video12_familiarity" />
+          <input type="hidden" name="video13_overall_valence" id="field_video13_overall_valence" />
+          <input type="hidden" name="video13_overall_arousal" id="field_video13_overall_arousal" />
+          <input type="hidden" name="video13_timeline_arousal_0s" id="field_video13_timeline_arousal_0s" />
+          <input type="hidden" name="video13_timeline_arousal_10s" id="field_video13_timeline_arousal_10s" />
+          <input type="hidden" name="video13_timeline_arousal_20s" id="field_video13_timeline_arousal_20s" />
+          <input type="hidden" name="video13_timeline_arousal_30s" id="field_video13_timeline_arousal_30s" />
+          <input type="hidden" name="video13_timeline_arousal_40s" id="field_video13_timeline_arousal_40s" />
+          <input type="hidden" name="video13_timeline_arousal_50s" id="field_video13_timeline_arousal_50s" />
+          <input type="hidden" name="video13_timeline_arousal_60s" id="field_video13_timeline_arousal_60s" />
+          <input type="hidden" name="video13_timeline_arousal_70s" id="field_video13_timeline_arousal_70s" />
+          <input type="hidden" name="video13_timeline_arousal_80s" id="field_video13_timeline_arousal_80s" />
+          <input type="hidden" name="video13_timeline_arousal_90s" id="field_video13_timeline_arousal_90s" />
+          <input type="hidden" name="video13_familiarity" id="field_video13_familiarity" />
+          <input type="hidden" name="video14_overall_valence" id="field_video14_overall_valence" />
+          <input type="hidden" name="video14_overall_arousal" id="field_video14_overall_arousal" />
+          <input type="hidden" name="video14_timeline_arousal_0s" id="field_video14_timeline_arousal_0s" />
+          <input type="hidden" name="video14_timeline_arousal_10s" id="field_video14_timeline_arousal_10s" />
+          <input type="hidden" name="video14_timeline_arousal_20s" id="field_video14_timeline_arousal_20s" />
+          <input type="hidden" name="video14_timeline_arousal_30s" id="field_video14_timeline_arousal_30s" />
+          <input type="hidden" name="video14_timeline_arousal_40s" id="field_video14_timeline_arousal_40s" />
+          <input type="hidden" name="video14_timeline_arousal_50s" id="field_video14_timeline_arousal_50s" />
+          <input type="hidden" name="video14_timeline_arousal_60s" id="field_video14_timeline_arousal_60s" />
+          <input type="hidden" name="video14_timeline_arousal_70s" id="field_video14_timeline_arousal_70s" />
+          <input type="hidden" name="video14_timeline_arousal_80s" id="field_video14_timeline_arousal_80s" />
+          <input type="hidden" name="video14_timeline_arousal_90s" id="field_video14_timeline_arousal_90s" />
+          <input type="hidden" name="video14_familiarity" id="field_video14_familiarity" />
+          <input type="hidden" name="video15_overall_valence" id="field_video15_overall_valence" />
+          <input type="hidden" name="video15_overall_arousal" id="field_video15_overall_arousal" />
+          <input type="hidden" name="video15_timeline_arousal_0s" id="field_video15_timeline_arousal_0s" />
+          <input type="hidden" name="video15_timeline_arousal_10s" id="field_video15_timeline_arousal_10s" />
+          <input type="hidden" name="video15_timeline_arousal_20s" id="field_video15_timeline_arousal_20s" />
+          <input type="hidden" name="video15_timeline_arousal_30s" id="field_video15_timeline_arousal_30s" />
+          <input type="hidden" name="video15_timeline_arousal_40s" id="field_video15_timeline_arousal_40s" />
+          <input type="hidden" name="video15_timeline_arousal_50s" id="field_video15_timeline_arousal_50s" />
+          <input type="hidden" name="video15_timeline_arousal_60s" id="field_video15_timeline_arousal_60s" />
+          <input type="hidden" name="video15_timeline_arousal_70s" id="field_video15_timeline_arousal_70s" />
+          <input type="hidden" name="video15_timeline_arousal_80s" id="field_video15_timeline_arousal_80s" />
+          <input type="hidden" name="video15_timeline_arousal_90s" id="field_video15_timeline_arousal_90s" />
+          <input type="hidden" name="video15_familiarity" id="field_video15_familiarity" />
+          <input type="hidden" name="video16_overall_valence" id="field_video16_overall_valence" />
+          <input type="hidden" name="video16_overall_arousal" id="field_video16_overall_arousal" />
+          <input type="hidden" name="video16_timeline_arousal_0s" id="field_video16_timeline_arousal_0s" />
+          <input type="hidden" name="video16_timeline_arousal_10s" id="field_video16_timeline_arousal_10s" />
+          <input type="hidden" name="video16_timeline_arousal_20s" id="field_video16_timeline_arousal_20s" />
+          <input type="hidden" name="video16_timeline_arousal_30s" id="field_video16_timeline_arousal_30s" />
+          <input type="hidden" name="video16_timeline_arousal_40s" id="field_video16_timeline_arousal_40s" />
+          <input type="hidden" name="video16_timeline_arousal_50s" id="field_video16_timeline_arousal_50s" />
+          <input type="hidden" name="video16_timeline_arousal_60s" id="field_video16_timeline_arousal_60s" />
+          <input type="hidden" name="video16_timeline_arousal_70s" id="field_video16_timeline_arousal_70s" />
+          <input type="hidden" name="video16_timeline_arousal_80s" id="field_video16_timeline_arousal_80s" />
+          <input type="hidden" name="video16_timeline_arousal_90s" id="field_video16_timeline_arousal_90s" />
+          <input type="hidden" name="video16_familiarity" id="field_video16_familiarity" />
+        </div>
+
+        <header class="page-header">
+          <div class="progress-label" id="progressLabel">Baseline</div>
+          <div class="progress-track" aria-hidden="true">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+        </header>
+
+        <div id="pageContent"></div>
+
+        <footer class="page-footer">
+          <div class="save-status" id="saveStatus" role="status" aria-live="polite"></div>
+          <button class="next-button" id="nextButton" type="button" disabled>下一页</button>
+        </footer>
+      </form>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
