@@ -290,7 +290,7 @@ input {
 .timeline-time-labels {
   display: grid;
   grid-template-columns: repeat(10, 1fr);
-  margin: 10px 0;
+  margin-top: 10px;
   color: var(--muted);
   font-size: 14px;
   text-align: center;
