@@ -428,14 +428,8 @@
 可以先回忆视频中情绪变化较明显的时间点，再完成其他时间点的评分，使整条曲线尽可能反映你观看视频时的情绪变化过程。
 请根据第一感觉作答，无需追求完全精确，也无需刻意保持曲线平滑。</p>
           <div class="timeline-wrap">
-            <div class="timeline-y-labels" aria-hidden="true">
-              ${timelineYAxisTemplate()}
-            </div>
             <div class="timeline-area">
-              <svg class="timeline-svg" id="timelineSvg" viewBox="0 0 1000 410" role="img" aria-label="0秒到90秒的9档情绪唤醒度时间轴"></svg>
-              <div class="timeline-time-labels">
-                ${timePoints.map((time) => `<span>${time}s</span>`).join("")}
-              </div>
+              <svg class="timeline-svg" id="timelineSvg" viewBox="0 0 1120 460" role="img" aria-label="0秒到90秒的9档情绪唤醒度时间轴"></svg>
             </div>
           </div>
         </section>
@@ -546,22 +540,47 @@
   function renderTimeline(data) {
     const svg = document.getElementById("timelineSvg");
     const values = timePoints.map((time) => data.timelineArousal[time] ?? 5);
-    const xPositions = timePoints.map((_, index) => 40 + index * (920 / 9));
-    const yPositions = Array.from({ length: 9 }, (_, index) => 38 + index * (350 / 8));
+    const xStart = 112;
+    const xEnd = 1080;
+    const yStart = 46;
+    const yEnd = 396;
+    const xPositions = timePoints.map((_, index) => xStart + index * ((xEnd - xStart) / 9));
+    const yPositions = Array.from({ length: 9 }, (_, index) => yStart + index * ((yEnd - yStart) / 8));
+    const yAxisLabels = [
+      { value: 9, emoji: "🤯" },
+      { value: 8, emoji: "" },
+      { value: 7, emoji: "😧" },
+      { value: 6, emoji: "" },
+      { value: 5, emoji: "😐" },
+      { value: 4, emoji: "" },
+      { value: 3, emoji: "😔" },
+      { value: 2, emoji: "" },
+      { value: 1, emoji: "😴" },
+    ];
 
     const toY = (value) => yPositions[9 - value];
     const points = values.map((value, index) => `${xPositions[index]},${toY(value)}`).join(" ");
 
     svg.innerHTML = `
-      ${yPositions.map((y) => `<line class="grid-line" x1="40" y1="${y}" x2="960" y2="${y}"></line>`).join("")}
-      ${xPositions.map((x) => `<line class="grid-line" x1="${x}" y1="38" x2="${x}" y2="388"></line>`).join("")}
-      ${xPositions.map((x) => `<line class="rail-line" x1="${x}" y1="38" x2="${x}" y2="388"></line>`).join("")}
+      ${yPositions.map((y) => `<line class="grid-line" x1="${xStart}" y1="${y}" x2="${xEnd}" y2="${y}"></line>`).join("")}
+      ${xPositions.map((x) => `<line class="grid-line" x1="${x}" y1="${yStart}" x2="${x}" y2="${yEnd}"></line>`).join("")}
+      ${xPositions.map((x) => `<line class="rail-line" x1="${x}" y1="${yStart}" x2="${x}" y2="${yEnd}"></line>`).join("")}
+      ${yAxisLabels
+        .map((label) => {
+          const y = toY(label.value);
+          return `
+            <text class="timeline-axis-emoji" x="42" y="${y + 6}">${label.emoji}</text>
+            <text class="timeline-axis-number" x="78" y="${y + 6}">${label.value}</text>
+          `;
+        })
+        .join("")}
+      ${timePoints.map((time, index) => `<text class="timeline-axis-time" x="${xPositions[index]}" y="438">${time}s</text>`).join("")}
       <polyline class="timeline-polyline" points="${points}"></polyline>
       ${values
         .map((value, index) => {
           const x = xPositions[index];
           const y = toY(value);
-          const labelY = Math.max(14, y - 28);
+          const labelY = Math.max(22, y - 30);
           return `
             <g class="timeline-point" data-index="${index}">
               <rect class="timeline-value-box" x="${x - 13}" y="${labelY - 11}" width="26" height="22" rx="4"></rect>
@@ -611,8 +630,10 @@
     point.x = event.clientX;
     point.y = event.clientY;
     const svgPoint = point.matrixTransform(svg.getScreenCTM().inverse());
-    const clampedY = Math.max(38, Math.min(388, svgPoint.y));
-    const raw = 9 - Math.round(((clampedY - 38) / 350) * 8);
+    const yStart = 46;
+    const yEnd = 396;
+    const clampedY = Math.max(yStart, Math.min(yEnd, svgPoint.y));
+    const raw = 9 - Math.round(((clampedY - yStart) / (yEnd - yStart)) * 8);
     const value = Math.max(1, Math.min(9, raw));
     data.timelineArousal[timePoints[index]] = value;
     saveAnswers();
@@ -700,7 +721,7 @@
     const complete = isCurrentPageComplete();
     nextButton.disabled = !complete;
     nextButton.classList.toggle("enabled", complete);
-    nextButton.textContent = state.page === PAGE_COUNT - 1 ? "Submit" : "下一页";
+    nextButton.textContent = state.page === PAGE_COUNT - 1 ? "提交" : "下一页";
   }
 
   async function submitNetlifyForm() {
