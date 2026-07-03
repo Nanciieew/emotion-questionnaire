@@ -9,12 +9,45 @@
   <body>
     <main class="app-shell">
       <section class="survey-card success-card">
+        <div class="success-confetti-layer" id="successConfettiLayer" aria-hidden="true"></div>
         <div>
           <div class="progress-label">Complete</div>
-          <h1 class="page-title">问卷已提交</h1>
-          <p class="page-description">感谢你的参与。请根据测试员引导继续后续实验流程。</p>
+          <h1 class="page-title">问卷已<span class="success-title-mark" id="submitBurstOrigin">提交</span></h1>
+          <p class="page-description">感谢您的参与，请尽情享受电影吧！！！</p>
         </div>
       </section>
     </main>
+    <script>
+      (function () {
+        const layer = document.getElementById("successConfettiLayer");
+        const origin = document.getElementById("submitBurstOrigin");
+        if (!layer || !origin) return;
+
+        const layerRect = layer.getBoundingClientRect();
+        const originRect = origin.getBoundingClientRect();
+        const originX = originRect.left + originRect.width / 2 - layerRect.left;
+        const originY = originRect.top + originRect.height / 2 - layerRect.top;
+        const colors = ["#1769e0", "#8ac21a", "#ffc21a", "#f2632b"];
+
+        for (let index = 0; index < 96; index += 1) {
+          const piece = document.createElement("span");
+          const angle = Math.random() * Math.PI * 2;
+          const distance = 150 + Math.random() * 360;
+          const tx = Math.cos(angle) * distance;
+          const ty = Math.sin(angle) * distance + 160 + Math.random() * 120;
+          piece.className = Math.random() > 0.18 ? "success-confetti-piece" : "success-confetti-ribbon";
+          piece.style.setProperty("--origin-x", `${originX}px`);
+          piece.style.setProperty("--origin-y", `${originY}px`);
+          piece.style.setProperty("--tx", `${tx}px`);
+          piece.style.setProperty("--ty", `${ty}px`);
+          piece.style.setProperty("--rot", `${Math.random() * 720 - 360}deg`);
+          piece.style.setProperty("--delay", `${Math.random() * 0.35}s`);
+          piece.style.background = colors[index % colors.length];
+          layer.appendChild(piece);
+        }
+
+        setTimeout(() => layer.replaceChildren(), 3400);
+      })();
+    </script>
   </body>
 </html>
