@@ -62,7 +62,11 @@ button {
 }
 
 .success-card {
+  position: relative;
   justify-content: center;
+  align-items: center;
+  text-align: center;
+  overflow: hidden;
 }
 
 .page-header {
@@ -682,10 +686,8 @@ button {
 }
 
 .timeline-wrap {
-  display: grid;
-  grid-template-columns: 80px 1fr;
-  gap: 16px;
-  align-items: start;
+  display: block;
+  width: 100%;
 }
 
 .timeline-y-labels {
@@ -719,7 +721,7 @@ button {
 
 .timeline-svg {
   width: 100%;
-  height: 410px;
+  height: 480px;
   display: block;
   touch-action: none;
   user-select: none;
@@ -769,13 +771,22 @@ button {
   outline: none;
 }
 
+.timeline-axis-number,
+.timeline-axis-time {
+  fill: var(--muted);
+  font-size: 18px;
+  font-weight: 700;
+  text-anchor: middle;
+}
+
+.timeline-axis-emoji {
+  fill: var(--text);
+  font-size: 22px;
+  text-anchor: middle;
+}
+
 .timeline-time-labels {
-  display: grid;
-  grid-template-columns: repeat(10, 1fr);
-  margin-top: 10px;
-  color: var(--muted);
-  font-size: 14px;
-  text-align: center;
+  display: none;
 }
 
 .page-footer {
@@ -863,4 +874,36 @@ button {
   .row-error {
     grid-column: 1;
   }
+}
+
+.success-confetti-layer {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.success-confetti-piece,
+.success-confetti-ribbon {
+  position: absolute;
+  left: var(--origin-x, 50%);
+  top: var(--origin-y, 46%);
+  opacity: 0;
+  animation: confettiBurst 3s cubic-bezier(0.16, 0.84, 0.32, 1) var(--delay) forwards;
+}
+
+.success-confetti-piece {
+  width: 8px;
+  height: 14px;
+  border-radius: 2px;
+}
+
+.success-confetti-ribbon {
+  width: 22px;
+  height: 5px;
+  border-radius: 999px;
+}
+
+.success-title-mark {
+  color: var(--blue);
 }
