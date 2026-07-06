@@ -3,7 +3,7 @@
   const PARTICIPANT_KEY = "eegEmotionParticipantId";
   const CONFETTI_KEY = "eegEmotionWelcomeConfettiPlayed";
   const VIDEO_COUNT = 8;
-  const PAGE_COUNT = 3 + VIDEO_COUNT * 3;
+  const PAGE_COUNT = 3 + VIDEO_COUNT * 2;
   const HOLD_DURATION_MS = 2000;
   const timePoints = Array.from({ length: 10 }, (_, index) => index * 10);
   const sliderTimePoints = timePoints.slice(1);
@@ -86,9 +86,9 @@
     if (page === 1) return { type: "participantInfo" };
     if (page === 2) return { type: "baseline" };
     const offset = page - 3;
-    const video = Math.floor(offset / 3) + 1;
-    const step = offset % 3;
-    return { type: step === 0 ? "videoPrep" : step === 1 ? "videoPlay" : "videoAssess", video };
+    const video = Math.floor(offset / 2) + 1;
+    const step = offset % 2;
+    return { type: step === 0 ? "videoPrep" : "videoAssess", video };
   }
 
   function pageKey(page = state.page) {
@@ -101,7 +101,7 @@
 
   function ensurePageData() {
     const meta = getPageMeta();
-    if (meta.type === "landing" || meta.type === "videoPrep" || meta.type === "videoPlay") return {};
+    if (meta.type === "landing" || meta.type === "videoPrep") return {};
     const key = pageKey();
     if (!state.answers[key]) {
       state.answers[key] = meta.type === "videoAssess" ? { timelineArousal: defaultTimeline() } : {};
@@ -126,7 +126,7 @@
     surveyForm.classList.toggle("info-mode", meta.type === "participantInfo");
     surveyForm.classList.toggle("assessment-mode", meta.type === "baseline" || meta.type === "videoAssess");
     surveyForm.classList.toggle("prep-mode", meta.type === "videoPrep");
-    surveyForm.classList.toggle("video-mode", meta.type === "videoPlay");
+    surveyForm.classList.toggle("video-mode", false);
 
     if (meta.type === "landing") {
       progressLabel.textContent = "";
@@ -154,9 +154,6 @@
     } else if (meta.type === "videoPrep") {
       pageContent.innerHTML = videoPrepTemplate(meta.video);
       bindVideoPrep(meta.video);
-    } else if (meta.type === "videoPlay") {
-      pageContent.innerHTML = videoPlayTemplate(meta.video);
-      bindVideoPlay();
     } else {
       pageContent.innerHTML = videoTemplate();
       bindScales(data);
@@ -189,7 +186,7 @@
       <section class="landing-page" aria-labelledby="landingTitle">
         <div class="confetti-layer" id="confettiLayer" aria-hidden="true"></div>
         <div class="brand-logo landing-fade delay-1" aria-label="NeuroDance">
-          <img class="brand-logo-image" src="./assets/neurodance-logo.svg" alt="NeuroDance" />
+          <img class="brand-logo-image" src="./assets/neurodance-logo.png" alt="NeuroDance" />
         </div>
         <h1 class="landing-title landing-fade delay-2" id="landingTitle">欢迎参加影视情绪模型测试</h1>
         <p class="landing-copy landing-fade delay-3">感谢您参与本次实验。<br>本测试旨在研究影视内容引发的情绪体验，不存在正确或错误答案。<br>请根据您的真实感受进行作答，并尽量保持专注。</p>
@@ -388,11 +385,11 @@
         <div class="prep-accent" aria-hidden="true"></div>
         <h1 class="page-title" id="videoPrepTitle">请观看电影片段</h1>
         <p class="prep-copy">请保持专注，完整观看接下来播放的视频内容。观看过程中无需作答。</p>
-        <p class="prep-note">视频结束后，系统将自动进入情绪评估页面。请根据你的真实感受作答。</p>
-        <button class="hold-button" id="holdButton" type="button" style="--hold-progress: 0" aria-label="长按开始视频 ${video}">
-          <span class="hold-button-core">长按开始</span>
+        <p class="prep-note">长按确认后，系统将进入情绪评估页面。请根据你的真实感受作答。</p>
+        <button class="hold-button" id="holdButton" type="button" style="--hold-progress: 0deg" aria-label="长按进入视频 ${video} 情绪评估">
+          <span class="hold-button-core">长按进入下一页</span>
         </button>
-        <div class="hold-hint" id="holdHint">请长按 2 秒进入视频</div>
+        <div class="hold-hint" id="holdHint">请长按 2 秒进入下一页</div>
       </section>
     `;
   }
@@ -404,9 +401,9 @@
       if (!state.hold) return;
       if (state.hold.frame) cancelAnimationFrame(state.hold.frame);
       state.hold = null;
-      button.classList.remove("holding", "complete");
-      button.style.setProperty("--hold-progress", 0);
-      if (showHint) hint.textContent = "请长按 2 秒进入视频";
+      button.classList.remove("is-holding", "is-complete");
+      button.style.setProperty("--hold-progress", "0deg");
+      if (showHint) hint.textContent = "请长按 2 秒进入下一页";
     };
     const startHold = (event) => {
       if (state.transitioning || state.hold) return;
@@ -415,16 +412,16 @@
       const startMs = performance.now();
       const startIso = new Date().toISOString();
       hint.textContent = "";
-      button.classList.add("holding");
+      button.classList.add("is-holding");
       state.hold = { startMs, startIso, frame: null };
       const tick = () => {
         if (!state.hold) return;
         const elapsed = performance.now() - startMs;
         const progress = Math.min(1, elapsed / HOLD_DURATION_MS);
-        button.style.setProperty("--hold-progress", progress);
+        button.style.setProperty("--hold-progress", `${progress * 360}deg`);
         if (progress >= 1) {
-          button.classList.remove("holding");
-          button.classList.add("complete");
+          button.classList.remove("is-holding");
+          button.classList.add("is-complete");
           const completeIso = new Date().toISOString();
           state.answers.videoHolds = state.answers.videoHolds || {};
           state.answers.videoHolds[`video${video}`] = {
@@ -451,41 +448,6 @@
     button.addEventListener("contextmenu", (event) => event.preventDefault());
   }
 
-  function videoPlayTemplate(video) {
-    const src = `./videos/video${video}.mp4`;
-    return `
-      <section class="video-play-page" aria-labelledby="videoPlayTitle">
-        <div class="intro video-play-intro">
-          <h1 class="page-title" id="videoPlayTitle">电影片段 ${video}</h1>
-          <p class="page-description">请完整观看视频。视频结束后将自动进入情绪评估页面。</p>
-        </div>
-        <div class="video-frame">
-          <video id="experimentVideo" class="experiment-video" src="${src}" controls playsinline preload="auto"></video>
-        </div>
-        <div class="video-status" id="videoStatus">如浏览器未自动播放，请点击视频播放按钮。</div>
-        <button class="video-fallback-button" id="videoFallbackButton" type="button" hidden>进入情绪评估</button>
-      </section>
-    `;
-  }
-
-  function bindVideoPlay() {
-    const video = document.getElementById("experimentVideo");
-    const status = document.getElementById("videoStatus");
-    const fallback = document.getElementById("videoFallbackButton");
-    video.addEventListener("ended", () => goToPage(state.page + 1));
-    video.addEventListener("error", () => {
-      status.textContent = "视频文件未配置，请联系测试员。";
-      fallback.hidden = false;
-    });
-    fallback.addEventListener("click", () => goToPage(state.page + 1));
-    const playPromise = video.play();
-    if (playPromise?.catch) {
-      playPromise.catch(() => {
-        status.textContent = "请点击视频播放按钮开始观看。";
-      });
-    }
-  }
-
   function videoTemplate() {
     return `
       <div class="content-grid">
@@ -500,7 +462,7 @@
           <div class="question-index">问题三</div>
           <div class="question-name">情绪唤醒度时间线</div>
           <h2 class="question-title" id="timelineTitle">请回顾视频过程中每个时间点的兴奋或紧张程度的变化</h2>
-          <p class="question-hint">请根据你观看视频时的真实感受，回忆每个时间点的兴奋、紧张或平静程度。
+          <p class="question-hint">请根据你观看视频时的真实感受，回忆每个时间点的兴奋、紧张或平静程度，通过拖动下方滑动条调整图中曲线。
 可以先回忆视频中情绪变化较明显的时间点，再完成其他时间点的评分，使整条曲线尽可能反映你观看视频时的情绪变化过程。
 请根据第一感觉作答，无需追求完全精确，也无需刻意保持曲线平滑。</p>
           <div class="timeline-wrap">
@@ -523,8 +485,10 @@
     return `
       <label class="timeline-slider-row">
         <span class="timeline-slider-time">${time}s</span>
-        <input class="timeline-slider" type="range" min="1" max="9" step="1" value="5" data-time="${time}" aria-label="${time}秒情绪唤醒度" />
-        <span class="timeline-slider-value" data-time-value="${time}">5</span>
+        <span class="timeline-slider-control">
+          <span class="timeline-slider-bubble" data-time-value="${time}">5</span>
+          <input class="timeline-slider" type="range" min="1" max="9" step="1" value="5" data-time="${time}" aria-label="${time}秒情绪唤醒度" />
+        </span>
       </label>
     `;
   }
@@ -629,12 +593,14 @@
   function updateSliderVisual(slider, value) {
     const percent = ((value - 1) / 8) * 100;
     slider.style.setProperty("--slider-progress", `${percent}%`);
+    const control = slider.closest(".timeline-slider-control");
+    if (control) control.style.setProperty("--slider-progress", `${percent}%`);
   }
 
   function isCurrentPageComplete() {
     const meta = getPageMeta();
     if (meta.type === "landing") return Boolean(state.participantId);
-    if (meta.type === "videoPrep" || meta.type === "videoPlay") return false;
+    if (meta.type === "videoPrep") return false;
     const data = ensurePageData();
     if (meta.type === "participantInfo") return validateParticipantInfo(false);
     if (meta.type === "baseline") return isScore(data.baselineValence) && isScore(data.baselineArousal);
@@ -679,7 +645,7 @@
 
   function updateNextButton() {
     const meta = getPageMeta();
-    if (meta.type === "landing" || meta.type === "videoPrep" || meta.type === "videoPlay") {
+    if (meta.type === "landing" || meta.type === "videoPrep") {
       nextButton.disabled = true;
       nextButton.classList.remove("enabled");
       nextButton.textContent = "下一页";
