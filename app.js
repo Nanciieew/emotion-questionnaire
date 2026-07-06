@@ -2,7 +2,7 @@
   const STORAGE_KEY = "eegEmotionAssessmentData";
   const PARTICIPANT_KEY = "eegEmotionParticipantId";
   const CONFETTI_KEY = "eegEmotionWelcomeConfettiPlayed";
-  const VIDEO_COUNT = 8;
+  const VIDEO_COUNT = 9;
   const PAGE_COUNT = 3 + VIDEO_COUNT * 2;
   const HOLD_DURATION_MS = 2000;
   const timePoints = Array.from({ length: 10 }, (_, index) => index * 10);
