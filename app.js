@@ -185,17 +185,14 @@
     return `
       <section class="landing-page" aria-labelledby="landingTitle">
         <div class="confetti-layer" id="confettiLayer" aria-hidden="true"></div>
-        <div class="brand-logo landing-fade delay-1" aria-label="NeuroDance">
-          <img class="brand-logo-image" src="./assets/neurodance-logo.png" alt="NeuroDance" />
-        </div>
-        <h1 class="landing-title landing-fade delay-2" id="landingTitle">欢迎参加影视情绪模型测试</h1>
-        <p class="landing-copy landing-fade delay-3">感谢您参与本次实验。<br>本测试旨在研究影视内容引发的情绪体验，不存在正确或错误答案。<br>请根据您的真实感受进行作答，并尽量保持专注。</p>
-        <div class="landing-input-area landing-fade delay-4">
+        <h1 class="landing-title landing-fade delay-1" id="landingTitle">欢迎参加影视情绪模型测试</h1>
+        <p class="landing-copy landing-fade delay-2">感谢您参与本次实验。<br>本测试旨在研究影视内容引发的情绪体验，不存在正确或错误答案。<br>请根据您的真实感受进行作答，并尽量保持专注。</p>
+        <div class="landing-input-area landing-fade delay-3">
           <label class="field-label" for="participantIdInput">请输入被试 ID</label>
           <input class="text-input participant-input" id="participantIdInput" type="text" value="${escapeHtml(state.participantId)}" placeholder="例：s1" autocomplete="off" inputmode="latin" />
           <div class="field-error" id="participantIdError"></div>
         </div>
-        <button class="start-button landing-fade delay-5" id="startButton" type="button">开启测试</button>
+        <button class="start-button landing-fade delay-4" id="startButton" type="button">开启测试</button>
       </section>
     `;
   }
